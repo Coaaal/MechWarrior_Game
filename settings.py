@@ -1,0 +1,37 @@
+#define options/settings
+TITLE = "Mech Warrior"
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 720
+SURFACE_WIDTH = 640
+SURFACE_HEIGHT = 544
+FPS = 30
+GRAVITY = 2
+
+
+#spritesheet
+SPRITE_FILE_NAME = "MechWarrior.png"
+TILE_SIZE = 32
+KEY_PIXEL = (255,0,236)
+
+#spritesheet asset locations
+PLAYER_HUMAN = [32, 0, TILE_SIZE, TILE_SIZE]
+DESSERT = [0, 0, TILE_SIZE, TILE_SIZE]
+PLACEHOLDER = [96, 32, TILE_SIZE, TILE_SIZE]
+
+#player properties
+PLAYER_ACCELERATION = 1
+PLAYER_FRICTION = -0.12
+PLAYER_JUMP = -20
+
+#player states
+ALIVE = 1
+DEAD = 0
+
+#define colors
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+RED = (150,0,0)
+GREEN = (0,150,0)
+BLUE = (0,0,150)
+YELLOW = (255,255,0)
+
