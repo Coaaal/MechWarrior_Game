@@ -26,6 +26,9 @@ class Game:
         self.floor_tile = None
         self.world_sprites = None
         self.render_surface = RenderSurface(self)
+        self.acc = vec(0, 0)
+        self.pos = vec(0, 0)
+        self.vel = vec(0, 0)
 
         self.load_assets()
 
@@ -36,9 +39,9 @@ class Game:
 
     def new(self):
         # start a new game
-        self.all_sprites = pg.sprite.LayeredUpdates()
-        self.player_sprite = pg.sprite.LayeredUpdates()
-        for a in range(int(self.render_surface.rect.height/TILE_SIZE)):
+        self.all_sprites = pg.sprite.OrderedUpdates()
+        self.player_sprite = pg.sprite.OrderedUpdates()
+        for a in range(int(self.render_surface.rect.height/TILE_SIZE) + 1):
             for b in range(int(self.render_surface.rect.width/TILE_SIZE)):
                 self.floor_tile = GameEntity(self, TILE_SIZE, TILE_SIZE)
                 self.offset_x = (self.render_surface.rect.x + TILE_SIZE * b)
@@ -50,6 +53,7 @@ class Game:
         self.player_1 = Player(self, TILE_SIZE, TILE_SIZE)
         self.player_1.rect.center = self.render_surface.rect.center
         self.player_sprite.add(self.player_1)
+        # self.all_sprites.add(self.player_1)
         self.run()
 
     def run(self):
@@ -70,15 +74,59 @@ class Game:
                     self.playing = False
                 self.running = False
 
+        self.acc = vec(0, 0)
+        keys = pg.key.get_pressed()
+        if keys[pg.K_a]:
+            self.acc.x = -PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.x = -PLAYER_ACCELERATION * 2
+        if keys[pg.K_d]:
+            self.acc.x = PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.x = PLAYER_ACCELERATION * 2
+        if keys[pg.K_w]:
+            self.acc.y = -PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.y = -PLAYER_ACCELERATION * 2
+        if keys[pg.K_s]:
+            self.acc.y = PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.y = PLAYER_ACCELERATION * 2
+         # apply friction
+        self.acc += self.vel * PLAYER_FRICTION
+        # equations of motion
+        self.vel += self.acc
 
     def update(self):
         # Game Loop - Update
+        theCount = 1
+        lastSprite = self.all_sprites.sprites()[-1]
+        # !!!!!!!!!!! Need to set each sprite location
+        # !!!!!!!!!!! To the one before its right side
+        # !!!!!!!!!!! have to lose the vector
+        previous_sprite_count = -1
+        for current_sprite in self.all_sprites.sprites():
+            if current_sprite.rect.x < self.render_surface.rect.x:
+                previous_sprite_x = (self.all_sprites.sprites()[previous_sprite_count].rect.right) + 1
+                current_sprite.rect.x = previous_sprite_x
+            if current_sprite.rect.x > self.render_surface.rect.x + SURFACE_WIDTH:
+                current_sprite.rect.x = self.render_surface.rect.x
+            if current_sprite.rect.y < self.render_surface.rect.y:
+                current_sprite.rect.y = self.render_surface.rect.y + SURFACE_HEIGHT
+            if current_sprite.rect.y > self.render_surface.rect.y + SURFACE_HEIGHT:
+                current_sprite.rect.y = self.render_surface.rect.y
+            current_sprite.rect.x += int(self.vel.x + 0.5 * self.acc.x)
+            current_sprite.rect.y += int(self.vel.y + 0.5 * self.acc.y)
+            previous_sprite_count += 1
+
+            # self.render_surface.blit(self.floor_tile.image, (self.offset_x, self.offset_y), None)
         self.all_sprites.update()
         self.player_sprite.update()
-        print(str(self.render_surface.rect.width))
+
 
     def draw(self):
         # Game Loop - Draw
+        self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         self.player_sprite.draw(self.screen)
         pg.display.flip()
