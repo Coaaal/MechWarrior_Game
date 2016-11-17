@@ -26,8 +26,9 @@ class GameEntity(pg.sprite.Sprite):
                                                       PLACEHOLDER[2],
                                                       PLACEHOLDER[3])
         self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0
+        self.acc = vec(0, 0)
+        self.vel = vec(0, 0)
+        self.pos = vec(0, 0)
 
     def spawn(self, x, y):
         # spawn entity at specified world coordinates
@@ -43,11 +44,37 @@ class Player(GameEntity):
                                                       PLAYER_HUMAN[2],
                                                       PLAYER_HUMAN[3])
         self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0
+        self.acc = vec(0, 0)
+        self.vel = vec(0, 0)
+        self.pos = vec(0, 0)
 
     def update(self):
-        pass
+        self.keys = pg.key.get_pressed()
+        self.acc = vec(0, 0)
+        keys = pg.key.get_pressed()
+        if keys[pg.K_a]:
+            self.acc.x = -PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.x = -PLAYER_ACCELERATION * 2
+        if keys[pg.K_d]:
+            self.acc.x = PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.x = PLAYER_ACCELERATION * 2
+        if keys[pg.K_w]:
+            self.acc.y = -PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.y = -PLAYER_ACCELERATION * 2
+        if keys[pg.K_s]:
+            self.acc.y = PLAYER_ACCELERATION
+            if keys[pg.K_LSHIFT]:
+                self.acc.y = PLAYER_ACCELERATION * 2
+        # apply friction
+        self.acc += self.vel * PLAYER_FRICTION
+        # equations of motion
+        self.vel += self.acc
+        self.pos += self.vel + 0.5 * self.acc
+        print(str(self.vel.x) + " -- " + str(self.vel.y))
+
 
 class World:
     def __init__(self):
@@ -61,15 +88,17 @@ class World:
     def retrieve_coords(self):
         return self.world_coords_offset
 
+
 # Everything will blit to surface and the surface will render to the screen
-class RenderSurface:
-    def __init__(self, game):
+class RenderSurface(pg.Surface):
+    def __init__(self, game, width=SURFACE_WIDTH, height=SURFACE_HEIGHT):
+        pg.Surface.__init__(self, (width, height))
         self.game = game
-        self.width = SURFACE_WIDTH
-        self.height = SURFACE_HEIGHT
+        self.width = width
+        self.height = height
         self.image = pg.Surface((self.width, self.height))
         self.image = self.image.convert()
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         self.rect.center = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
-        self.game.screen.blit(self.image, self.rect)
+        # self.game.screen.blit(self.image, self.rect)
