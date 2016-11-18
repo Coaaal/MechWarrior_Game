@@ -16,23 +16,28 @@ class Spritesheet:
 
 
 class GameEntity(pg.sprite.Sprite):
-    def __init__(self, game, width, height):
+    def __init__(self, game, width, height, asset_type=PLACEHOLDER):
         pg.sprite.Sprite.__init__(self)
         self.game = game
         self.width = width
         self.height = height
-        self.image = self.game.sprite_sheet.get_image(PLACEHOLDER[0],
-                                                      PLACEHOLDER[1],
-                                                      PLACEHOLDER[2],
-                                                      PLACEHOLDER[3])
+        self.asset_type = asset_type
+        self.image = PLACEHOLDER
+        if self.asset_type == PLACEHOLDER:
+            self.image = self.game.sprite_sheet.get_image(PLACEHOLDER[0],
+                                                          PLACEHOLDER[1],
+                                                          PLACEHOLDER[2],
+                                                          PLACEHOLDER[3])
+        elif self.asset_type == DESSERT:
+            self.image = self.game.sprite_sheet.get_image(DESSERT[0],
+                                                          DESSERT[1],
+                                                          DESSERT[2],
+                                                          DESSERT[3])
         self.rect = self.image.get_rect()
-        self.acc = vec(0, 0)
-        self.vel = vec(0, 0)
-        self.pos = vec(0, 0)
 
     def spawn(self, x, y):
         # spawn entity at specified world coordinates
-        self.pos = vec(x, y)
+        pass
 
 
 # the player directly affects the camera, but the player is always centered in the camera
@@ -49,31 +54,7 @@ class Player(GameEntity):
         self.pos = vec(0, 0)
 
     def update(self):
-        self.keys = pg.key.get_pressed()
-        self.acc = vec(0, 0)
-        keys = pg.key.get_pressed()
-        if keys[pg.K_a]:
-            self.acc.x = -PLAYER_ACCELERATION
-            if keys[pg.K_LSHIFT]:
-                self.acc.x = -PLAYER_ACCELERATION * 2
-        if keys[pg.K_d]:
-            self.acc.x = PLAYER_ACCELERATION
-            if keys[pg.K_LSHIFT]:
-                self.acc.x = PLAYER_ACCELERATION * 2
-        if keys[pg.K_w]:
-            self.acc.y = -PLAYER_ACCELERATION
-            if keys[pg.K_LSHIFT]:
-                self.acc.y = -PLAYER_ACCELERATION * 2
-        if keys[pg.K_s]:
-            self.acc.y = PLAYER_ACCELERATION
-            if keys[pg.K_LSHIFT]:
-                self.acc.y = PLAYER_ACCELERATION * 2
-        # apply friction
-        self.acc += self.vel * PLAYER_FRICTION
-        # equations of motion
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
-        print(str(self.vel.x) + " -- " + str(self.vel.y))
+        pass
 
 
 class World:
