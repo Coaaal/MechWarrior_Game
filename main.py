@@ -101,8 +101,6 @@ class Game:
 
     def update(self):
         # Game Loop - Update
-        theCount = 1
-        lastSprite = self.all_sprites.sprites()[-1]
         # !!!!!!!!!!! Need to set each sprite location
         # !!!!!!!!!!! To the one before its right side
         # !!!!!!!!!!! have to lose the vector
@@ -113,26 +111,13 @@ class Game:
         for current_sprite in self.all_sprites.sprites():
             current_sprite.rect.x += int(self.vel.x + 0.5 * self.acc.x)
             current_sprite.rect.y += int(self.vel.y + 0.5 * self.acc.y)
-            # previous_sprite_x = (self.all_sprites.sprites()[previous_sprite_count].rect.right) + 1
-            # if current_sprite.rect.x < self.render_surface.rect.x:
-            #     current_sprite.rect.x = previous_sprite_x
-            # if current_sprite.rect.x > self.render_surface.rect.x + SURFACE_WIDTH:
-            #     current_sprite.rect.x = self.render_surface.rect.x
-            # if current_sprite.rect.y < self.render_surface.rect.y:
-            #     current_sprite.rect.y = self.render_surface.rect.y + SURFACE_HEIGHT
-            # if current_sprite.rect.y > self.render_surface.rect.y + SURFACE_HEIGHT:
-            #     current_sprite.rect.y = self.render_surface.rect.y
-            # previous_sprite_count += 1
         for current_sprite in self.all_sprites.sprites():
             position_modifier1 = currCount
             position_modifier2 = currCount
             if next_sprite_count == len(self.all_sprites):
                 next_sprite_count = 0
-
             previous_sprite_x_right = (self.all_sprites.sprites()[previous_sprite_count].rect.right)
             next_sprite_x_left = (self.all_sprites.sprites()[next_sprite_count].rect.left)
-
-            # previous_sprite_x_bot = (self.all_sprites.sprites()[previous_sprite_count].rect.bottom) + 1
             if current_sprite.rect.x < self.render_surface.rect.x:
                 current_sprite.rect.x = previous_sprite_x_right
             if current_sprite.rect.right > self.render_surface.rect.x + self.render_surface.rect.width:
@@ -154,7 +139,6 @@ class Game:
             previous_sprite_count += 1
             next_sprite_count += 1
             currCount += 1
-            # self.render_surface.blit(self.floor_tile.image, (self.offset_x, self.offset_y), None)
         self.all_sprites.update()
         self.player_sprite.update()
 
