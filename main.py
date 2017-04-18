@@ -1,8 +1,8 @@
 # MechWarrior is an overhead real-time strategy/survival rpg
-
 # import pygame as pg
 # from settings import *
-from sprites import *
+from Pawns import *
+from Entity import Spritesheet
 from os import path
 
 
@@ -43,9 +43,9 @@ class Game:
         self.player_sprite = pg.sprite.OrderedUpdates()
         for a in range(int(self.render_surface.rect.height/TILE_SIZE) + 1):
             for b in range(int(self.render_surface.rect.width/TILE_SIZE)):
-                self.floor_tile = GameEntity(self, TILE_SIZE, TILE_SIZE)
+                self.floor_tile = GameEntity(self, TILE_SIZE, TILE_SIZE, DESSERT)
                 if b == 4 and a == 4:
-                    self.floor_tile = GameEntity(self, TILE_SIZE, TILE_SIZE, DESSERT)
+                    self.floor_tile = GameEntity(self, TILE_SIZE, TILE_SIZE)
                 self.offset_x = (self.render_surface.rect.x + TILE_SIZE * b)
                 self.offset_y = (self.render_surface.rect.y + TILE_SIZE * a)
                 self.floor_tile.rect.x = self.offset_x
