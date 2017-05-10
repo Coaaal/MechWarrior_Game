@@ -5,6 +5,8 @@ from Pawns import *
 from Entity import Spritesheet
 from World import *
 from os import path
+import os
+
 
 
 class Game:
@@ -25,6 +27,7 @@ class Game:
         self.game_over = False
 
     def load_assets(self):
+        # logging.info("Loading Assets...")
         self.world = World()
         self.dir = path.dirname(__file__)
         img_dir = path.join(self.dir, "img")
@@ -32,14 +35,17 @@ class Game:
         self.world.new()
 
     def new(self):
+        # logging.info("Starting new game...")
         self.run()
 
     def run(self):
+        # logging.info("Entering Game Loop...")
         while self.playing:
             self.clock.tick(FPS)
             self.events()
             self.world.update()
             self.draw()
+        # logging.info("Exiting Game Loop...")
 
     def events(self):
         # Game Loop - Events
@@ -104,4 +110,5 @@ while g.running:
     if g.game_over:
         g.show_game_over_screen()
 pg.quit()
+# logging.info("Quitting Game...")
 quit()

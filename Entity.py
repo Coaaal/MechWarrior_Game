@@ -5,11 +5,11 @@ vec = pg.math.Vector2
 class Spritesheet:
     # loads and parses sprite sheets
     def __init__(self, filename):
-        self.spritesheet = pg.image.load(filename).convert()
+        self.spritesheet = pg.image.load(filename)
 
     def get_image(self, x, y, width, height):
-            image = pg.Surface((width, height))
-            image.blit(self.spritesheet, (0,0), (x,y,width,height))
+            image = pg.Surface((width, height))  # , pg.SRCALPHA, 32
+            image.blit(self.spritesheet, (0, 0), (x, y, width, height))
             return image
 
 class GameEntity(pg.sprite.Sprite):

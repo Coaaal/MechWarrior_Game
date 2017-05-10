@@ -1,5 +1,7 @@
 from Pawns import *
+from Entity import *
 vec = pg.math.Vector2
+
 
 class World:
     def __init__(self):
@@ -12,7 +14,7 @@ class World:
         self.offset_x = None
         self.offset_y = None
         self.floor_tile = None
-        self.sprite_sheet = None
+        self.current_tiles = []
         self.render_surface = RenderSurface(self)
 
     def update_coords(self, vector_object):
@@ -23,6 +25,7 @@ class World:
 
     def generate_additional_world(self):
         pass
+
 
     def update(self):
         self.player_1.update()
@@ -77,3 +80,14 @@ class World:
         self.player_1 = Player(self, TILE_SIZE, TILE_SIZE)
         self.player_1.rect.center = self.render_surface.rect.center
         self.player_sprite.add(self.player_1)
+
+class RenderSurface(pg.Surface):
+    def __init__(self, game, width=SURFACE_WIDTH, height=SURFACE_HEIGHT):
+        pg.Surface.__init__(self, (width, height))
+        self.game = game
+        self.width = width
+        self.height = height
+        self.image = pg.Surface((self.width, self.height))
+        self.rect = self.image.get_rect()
+        self.rect.center = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
+        # self.game.screen.blit(self.image, self.rect)
