@@ -1,6 +1,5 @@
 import pygame as pg
 from settings import *
-vec = pg.math.Vector2
 
 class Spritesheet:
     # loads and parses sprite sheets

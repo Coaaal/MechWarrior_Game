@@ -2,6 +2,9 @@
 import pygame as pg
 from settings import *
 from Entity import GameEntity
+from os import path
+import json
+import inspect
 import logging
 vec = pg.math.Vector2
 
@@ -28,8 +31,22 @@ class Player(GameEntity):
         self.rotation_amount = 0
         self.is_alive = True
         self.world = world
+        self.weapons = []
+        self.current_weapon = None
         self.x_off = 0
         self.y_off = 0
+        self.pickup_item()
+
+
+
+    def pickup_item(self):
+        print("picking up arm_blaster")
+        new_weapon = Weapon(self.world, name="arm_blaster")
+        self.weapons.append(new_weapon)
+        self.current_weapon = new_weapon
+        print(self.current_weapon.name)
+        print(self.current_weapon.damage)
+        # self.weapons.append
 
     def update(self):
         self.get_keys()
@@ -103,8 +120,58 @@ class Player(GameEntity):
         self.vel += self.acc
 
 
-class ItemBoost(GameEntity):
-    def __init__(self):
-        self.image = self.game.sprite_sheet.get_image(POWER_UP)
+# class ItemBoost(GameEntity):
+#     def __init__(self):
+#         self.image = self.game.sprite_sheet.get_image(POWER_UP)
+
+class Weapon(GameEntity):
+    def __init__(self, world, name):
+        self.world = world
+        self.image = self.world.sprite_sheet.get_image(WEAPON[0],
+                                                      WEAPON[1],
+                                                      WEAPON[2],
+                                                      WEAPON[3])
+        self.name = name
+        self.bullet_speed = 0
+        self.ammo_type = 0
+        self.total_ammo = 0
+        self.current_ammo_amount = 0
+        self.shoot_speed = 0
+        self.reload_speed = 0
+        self.damage = 0
+        self.level = 0
+        self.distance = 0
+        self.weapons_dir = (((path.dirname(path.abspath(inspect.getfile(inspect.currentframe()))))) + "\weapons.json")
+        self.setup_weapon()
+
+    def get_keys(self):
+        mouse_event = pg.mouse.get_pressed()
+        if mouse_event[0]:  #  and self.current_ammo > 0
+            print("SHOOTING")
+
+    def shoot(self):
+        pass
+
+    def reloading(self):
+        pass
+
+    def set_ammo_type(self):
+        pass
+
+    def setup_weapon(self):
+        json_data = open(self.weapons_dir).read()
+        arm_blaster = json.loads(json_data)
+        arm_blaster = arm_blaster["arm_blaster"]
+        print(arm_blaster)
+        self.name = "arm_blaster"
+        self.distance = arm_blaster["Distance"]
+        self.level = arm_blaster["Level"]
+        self.damage = arm_blaster["Damage"]
+        self.ammo_type = arm_blaster["AmmoType"]
+        self.current_ammo_amount = arm_blaster["CurrentAmmoAmount"]
+        self.total_ammo = arm_blaster["TotalAmmo"]
+        self.bullet_speed = arm_blaster["BulletSpeed"]
+        self.reload_speed = arm_blaster["ReloadSpeed"]
+
 
 
