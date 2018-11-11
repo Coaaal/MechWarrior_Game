@@ -103,7 +103,6 @@ class Game:
                 self.running = False
 
 g = Game()
-g.show_start_screen()
 while g.running:
     g.show_start_screen()
     g.new()

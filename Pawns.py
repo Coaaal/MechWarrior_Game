@@ -41,7 +41,7 @@ class Player(GameEntity):
 
     def pickup_item(self):
         print("picking up arm_blaster")
-        new_weapon = Weapon(self.world, name="arm_blaster")
+        new_weapon = Weapon(self, self.world, name="arm_blaster")
         self.weapons.append(new_weapon)
         self.current_weapon = new_weapon
         print(self.current_weapon.name)
@@ -115,9 +115,11 @@ class Player(GameEntity):
             if keys[pg.K_LSHIFT]:
                 self.acc.y = -PLAYER_ACCELERATION * 2
                 # apply friction
+        self.current_weapon.get_keys()
         self.acc += self.vel * PLAYER_FRICTION
         # equations of motion
         self.vel += self.acc
+
 
 
 # class ItemBoost(GameEntity):
@@ -125,12 +127,13 @@ class Player(GameEntity):
 #         self.image = self.game.sprite_sheet.get_image(POWER_UP)
 
 class Weapon(GameEntity):
-    def __init__(self, world, name):
+    def __init__(self, player, world, name):
         self.world = world
         self.image = self.world.sprite_sheet.get_image(WEAPON[0],
                                                       WEAPON[1],
                                                       WEAPON[2],
                                                       WEAPON[3])
+        self.player = player
         self.name = name
         self.bullet_speed = 0
         self.ammo_type = 0
@@ -143,15 +146,20 @@ class Weapon(GameEntity):
         self.distance = 0
         self.weapons_dir = (((path.dirname(path.abspath(inspect.getfile(inspect.currentframe()))))) + "\weapons.json")
         self.setup_weapon()
+        self.live_bullets = []
 
     def get_keys(self):
         mouse_event = pg.mouse.get_pressed()
         if mouse_event[0]:  #  and self.current_ammo > 0
-            print("SHOOTING")
+            self.shoot()
 
     def shoot(self):
-        pass
+        print("shooting at players rotation of :", self.player.rotation_amount)
+        current_bullet = Bullet(self.world)
+        self.live_bullets.append(current_bullet)
 
+    def update(self):
+        print("BLAHHHH")
     def reloading(self):
         pass
 
@@ -160,18 +168,26 @@ class Weapon(GameEntity):
 
     def setup_weapon(self):
         json_data = open(self.weapons_dir).read()
-        arm_blaster = json.loads(json_data)
-        arm_blaster = arm_blaster["arm_blaster"]
-        print(arm_blaster)
-        self.name = "arm_blaster"
-        self.distance = arm_blaster["Distance"]
-        self.level = arm_blaster["Level"]
-        self.damage = arm_blaster["Damage"]
-        self.ammo_type = arm_blaster["AmmoType"]
-        self.current_ammo_amount = arm_blaster["CurrentAmmoAmount"]
-        self.total_ammo = arm_blaster["TotalAmmo"]
-        self.bullet_speed = arm_blaster["BulletSpeed"]
-        self.reload_speed = arm_blaster["ReloadSpeed"]
+        weapon_list = json.loads(json_data)
+        found_weapon = weapon_list[self.name]
+        self.distance = found_weapon["Distance"]
+        self.level = found_weapon["Level"]
+        self.damage = found_weapon["Damage"]
+        self.ammo_type = found_weapon["AmmoType"]
+        self.current_ammo_amount = found_weapon["CurrentAmmoAmount"]
+        self.total_ammo = found_weapon["TotalAmmo"]
+        self.bullet_speed = found_weapon["BulletSpeed"]
+        self.reload_speed = found_weapon["ReloadSpeed"]
 
 
-
+class Bullet(GameEntity):
+    def __init__(self, world):
+        self.world = world
+        self.image = self.world.sprite_sheet.get_image(BULLET[0],
+                                                       BULLET[1],
+                                                       BULLET[2],
+                                                       BULLET[3])
+        self.acc = vec(0, 0)
+        self.vel = vec(0, 0)
+        self.pos = vec(0, 0)
+        self.is_alive = True
