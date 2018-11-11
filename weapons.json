@@ -1,35 +1,38 @@
 {
-    "arm_sword":
-        {"BulletSpeed": 1,
-        "AmmoType": "fist",
-        "TotalAmmo": 0,
-        "CurrentAmmoAmount": 0,
-        "ShootSpeed": 1,
-        "ReloadSpeed": 1,
-        "Damage": 25,
-        "Level": 1,
-        "Distance":1
+    "armSword":
+        {
+            "bulletSpeed": 1,
+            "ammoType": "fist",
+            "totalAmmo": 0,
+            "currentAmmoAmount": 0,
+            "shootSpeed": 1,
+            "reloadSpeed": 1,
+            "damage": 25,
+            "level": 1,
+            "distance":1
         },
-    "arm_blaster":
-        {"BulletSpeed": 1,
-        "AmmoType": "life",
-        "TotalAmmo": 0,
-        "CurrentAmmoAmount": 0,
-        "ShootSpeed": 1,
-        "ReloadSpeed": 1,
-        "Damage": 25,
-        "Level": 1,
-        "Distance": 1
+    "armBlaster":
+        {
+            "bulletSpeed": 1,
+            "ammoType": "life",
+            "totalAmmo": 0,
+            "currentAmmoAmount": 0,
+            "shootSpeed": 1,
+            "reloadSpeed": 1,
+            "damage": 25,
+            "level": 1,
+            "distance": 1
         },
-    "arm_bow":
-        {"BulletSpeed": 1,
-        "AmmoType": "life",
-        "TotalAmmo": 0,
-        "CurrentAmmoAmount": 0,
-        "ShootSpeed": 1,
-        "ReloadSpeed": 1,
-        "Damage": 25,
-        "Level": 1,
-        "Distance": 1
+    "armBow":
+        {
+            "bulletSpeed": 1,
+            "ammoType": "life",
+            "totalAmmo": 0,
+            "currentAmmoAmount": 0,
+            "shootSpeed": 1,
+            "reloadSpeed": 1,
+            "damage": 25,
+            "level": 1,
+            "distance": 1
         }
 }

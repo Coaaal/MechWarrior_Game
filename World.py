@@ -1,5 +1,6 @@
 from Pawns import *
 from Entity import *
+from pygame import Surface, sprite
 vec = pg.math.Vector2
 
 
@@ -13,9 +14,8 @@ class World:
         self.all_sprites = None
         self.offset_x = None
         self.offset_y = None
-        self.floor_tile = None
         self.current_tiles = []
-        self.render_surface = RenderSurface(self)
+        self.render_surface = RenderSurface(game=self, width=SURFACE_WIDTH, height=SURFACE_HEIGHT)
 
     def update_coords(self, vector_object):
         self.world_coords_offset = vector_object
@@ -26,9 +26,10 @@ class World:
     def generate_additional_world(self):
         pass
 
-
     def update(self):
-        self.player_1.update()
+        for player_sprites in self.player_sprite:
+            player_sprites.update()
+        # self.player_1.update()
         previous_sprite_count = -1
         next_sprite_count = 1
         currCount = 0
@@ -66,28 +67,28 @@ class World:
             currCount += 1
 
     def new(self):
-        self.all_sprites = pg.sprite.OrderedUpdates()
-        self.player_sprite = pg.sprite.OrderedUpdates()
+        self.all_sprites = sprite.OrderedUpdates()
+        self.player_sprite = sprite.OrderedUpdates()
         for a in range(int(self.render_surface.rect.height / TILE_SIZE) + 1):
             for b in range(int(self.render_surface.rect.width / TILE_SIZE)):
-                self.floor_tile = GameEntity(self, TILE_SIZE, TILE_SIZE, DESSERT)
+                floor_tile = GameEntity(world=self, width=TILE_SIZE, height=TILE_SIZE, asset_type=DESSERT)
                 self.offset_x = (self.render_surface.rect.x + TILE_SIZE * b)
                 self.offset_y = (self.render_surface.rect.y + TILE_SIZE * a)
-                self.floor_tile.rect.x = self.offset_x
-                self.floor_tile.rect.y = self.offset_y
+                floor_tile.rect.x = self.offset_x
+                floor_tile.rect.y = self.offset_y
                 # self.render_surface.blit(self.floor_tile.image, (self.offset_x, self.offset_y), None)
-                self.all_sprites.add(self.floor_tile)
-        self.player_1 = Player(self, TILE_SIZE, TILE_SIZE)
+                self.all_sprites.add(floor_tile)
+        self.player_1 = Player(world=self, width=TILE_SIZE, height=TILE_SIZE, asset_type=PLAYER_HUMAN)
         self.player_1.rect.center = self.render_surface.rect.center
         self.player_sprite.add(self.player_1)
+        self.player_sprite.add(Weapon(player=self, world=self, name="armBlaster", asset_type=WEAPON))
 
-class RenderSurface(pg.Surface):
-    def __init__(self, game, width=SURFACE_WIDTH, height=SURFACE_HEIGHT):
-        pg.Surface.__init__(self, (width, height))
-        self.game = game
-        self.width = width
-        self.height = height
-        self.image = pg.Surface((self.width, self.height))
+
+class RenderSurface(Surface):
+    def __init__(self, **kwargs):
+        super(Surface, self).__init__(**kwargs)
+        self.game = kwargs.get('game')
+        self.image = Surface((kwargs.get('width'), kwargs.get('height')))
         self.rect = self.image.get_rect()
         self.rect.center = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
         # self.game.screen.blit(self.image, self.rect)

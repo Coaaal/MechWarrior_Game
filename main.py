@@ -1,12 +1,9 @@
 # MechWarrior is an overhead real-time strategy/survival rpg
-# import pygame as pg
-# from settings import *
-from Pawns import *
-from Entity import Spritesheet
-from World import *
+import pygame as pg
+from settings import *
+from Entity import SpriteSheet
+from World import World
 from os import path
-import os
-
 
 
 class Game:
@@ -31,7 +28,7 @@ class Game:
         self.world = World()
         self.dir = path.dirname(__file__)
         img_dir = path.join(self.dir, "img")
-        self.world.sprite_sheet = Spritesheet(path.join(img_dir, SPRITE_FILE_NAME))
+        self.world.sprite_sheet = SpriteSheet(path.join(img_dir, SPRITE_FILE_NAME))
         self.world.new()
 
     def new(self):
@@ -54,7 +51,6 @@ class Game:
                 if self.playing:
                     self.playing = False
                 self.running = False
-
 
     def update(self):
         self.world.all_sprites.update()
@@ -101,6 +97,7 @@ class Game:
             if keys[pg.K_q]:
                 self.playing = True
                 self.running = False
+
 
 g = Game()
 while g.running:
