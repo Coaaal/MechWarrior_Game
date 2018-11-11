@@ -1,4 +1,6 @@
-#define options/settings
+import os
+
+# define options/settings
 TITLE = "Mech Warrior"
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 720
@@ -6,14 +8,14 @@ SURFACE_WIDTH = 800
 SURFACE_HEIGHT = 600
 FPS = 30
 GRAVITY = 2
+ROOT_FOLDER = os.path.dirname(__file__)
 
-
-#spritesheet
+# spritesheet
 SPRITE_FILE_NAME = "MechWarrior.png"
 TILE_SIZE = 32
-KEY_PIXEL = (255,0,236)
+KEY_PIXEL = (255, 0, 236)
 
-#spritesheet asset locations
+# spritesheet asset locations
 PLAYER_HUMAN = (1 * TILE_SIZE), (0 * TILE_SIZE), TILE_SIZE, TILE_SIZE
 DESSERT = [(0 * TILE_SIZE), (0 * TILE_SIZE), TILE_SIZE, TILE_SIZE]
 PLACEHOLDER = [(3 * TILE_SIZE), (1 * TILE_SIZE), TILE_SIZE, TILE_SIZE]
@@ -21,21 +23,19 @@ WEAPON = [(2 * TILE_SIZE), (0 * TILE_SIZE), TILE_SIZE, TILE_SIZE]
 WALL = [(0 * TILE_SIZE), (1 * TILE_SIZE), TILE_SIZE, TILE_SIZE]
 POWER_UP = [(2 * TILE_SIZE), (1 * TILE_SIZE), TILE_SIZE, TILE_SIZE]
 BULLET = [(2 * TILE_SIZE), (1 * TILE_SIZE), TILE_SIZE, TILE_SIZE]
-#player properties
+# player properties
 PLAYER_ACCELERATION = 1
 PLAYER_FRICTION = -0.12
 PLAYER_ROTATION_SPEED = 250
 
-
-#player states
+# player states
 ALIVE = 1
 DEAD = 0
 
-#define colors
-WHITE = (255,255,255)
-BLACK = (0,0,0)
-RED = (150,0,0)
-GREEN = (0,150,0)
-BLUE = (0,0,150)
-YELLOW = (255,255,0)
-
+# define colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (150, 0, 0)
+GREEN = (0, 150, 0)
+BLUE = (0, 0, 150)
+YELLOW = (255, 255, 0)

@@ -1,6 +1,7 @@
 import pygame as pg
 from settings import *
 from Entity import GameEntity
+import time
 import json
 
 vec = pg.math.Vector2
@@ -119,9 +120,7 @@ class Weapon(GameEntity):
 
     def __init__(self, **kwargs):
         super(Weapon, self).__init__(**kwargs)
-        self.name = kwargs.get('name')
         self.weapon_stats = None
-        self.live_bullets = []
         self.setup_weapon()
 
     def get_keys(self):
@@ -131,11 +130,14 @@ class Weapon(GameEntity):
 
     def shoot(self):
         print("{} just shot!".format(self.name))
+        self.world.spawn_item(Bullet(world=self.world, life_length=self.weapon_stats['lifeLength'],
+                                     name=("{} ammo".format(self.name))))
         # current_bullet = Bullet(self.world)
         # self.live_bullets.append(current_bullet)
 
     def update(self):
-        print("BLAHHHH")
+        pass
+        # print("BLAHHHH")
 
     def reloading(self):
         pass
@@ -150,8 +152,12 @@ class Weapon(GameEntity):
 class Bullet(GameEntity):
     def __init__(self, **kwargs):
         super(Bullet, self).__init__(asset_type=BULLET, **kwargs)
-        self.world = kwargs.get('world')
         self.acc = vec(0, 0)
         self.vel = vec(0, 0)
         self.pos = vec(0, 0)
-        self.is_alive = True
+        self.life_length = kwargs.get('life_length')
+
+    def update(self):
+        if (time.time() - self.spawn_time) > self.life_length:
+            self.kill()
+        # self.rect.x, self.rect.y = self.pos

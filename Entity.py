@@ -1,4 +1,6 @@
 import pygame as pg
+import time
+from settings import TILE_SIZE
 
 
 class SpriteSheet:
@@ -7,7 +9,7 @@ class SpriteSheet:
         self.sprite_sheet = pg.image.load(filename)
 
     def get_image(self, x, y, width, height):
-            my_image = pg.Surface((width, height))  # , pg.SRCALPHA, 32
+            my_image = pg.Surface((width, height), pg.SRCALPHA)  # , pg.SRCALPHA, 32
             my_image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
             return my_image
 
@@ -19,8 +21,9 @@ class GameEntity(pg.sprite.Sprite):
         super(GameEntity, self).__init__()
         # pg.sprite.Sprite.__init__(self)
         self.world = kwargs.get('world')
-        self.width = kwargs.get('width')
-        self.height = kwargs.get('height')
+        self.name = kwargs.get('name')
+        self.width = TILE_SIZE
+        self.height = TILE_SIZE
         self.x = 0
         self.y = 0
         self.asset_type = kwargs.get('asset_type')
@@ -29,7 +32,9 @@ class GameEntity(pg.sprite.Sprite):
                                                        self.asset_type[2],
                                                        self.asset_type[3])
         self.rect = self.image.get_rect()
+        self.spawn_time = time.time()
 
     def spawn(self, x, y):
         # spawn entity at specified world coordinates
         pass
+

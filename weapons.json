@@ -9,7 +9,7 @@
             "reloadSpeed": 1,
             "damage": 25,
             "level": 1,
-            "distance":1
+            "lifeLength": 1
         },
     "armBlaster":
         {
@@ -21,7 +21,7 @@
             "reloadSpeed": 1,
             "damage": 25,
             "level": 1,
-            "distance": 1
+            "lifeLength": 1
         },
     "armBow":
         {
@@ -33,6 +33,6 @@
             "reloadSpeed": 1,
             "damage": 25,
             "level": 1,
-            "distance": 1
+            "lifeLength": 1
         }
 }

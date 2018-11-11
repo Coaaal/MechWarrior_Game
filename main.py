@@ -18,7 +18,6 @@ class Game:
         self.tile_count_y = (SCREEN_HEIGHT / TILE_SIZE)
         self.running = True
         self.playing = True
-        self.dir = None
         self.world = None
         self.load_assets()
         self.game_over = False
@@ -26,9 +25,7 @@ class Game:
     def load_assets(self):
         # logging.info("Loading Assets...")
         self.world = World()
-        self.dir = path.dirname(__file__)
-        img_dir = path.join(self.dir, "img")
-        self.world.sprite_sheet = SpriteSheet(path.join(img_dir, SPRITE_FILE_NAME))
+        self.world.sprite_sheet = SpriteSheet(path.join(path.join(ROOT_FOLDER, "img"), SPRITE_FILE_NAME))
         self.world.new()
 
     def new(self):
@@ -53,14 +50,15 @@ class Game:
                 self.running = False
 
     def update(self):
-        self.world.all_sprites.update()
+        self.world.terrain_sprites.update()
         self.world.player_sprite.update()
 
     def draw(self):
         # Game Loop - Draw
         self.screen.fill(BLACK)
-        self.world.all_sprites.draw(self.screen)
+        self.world.terrain_sprites.draw(self.screen)
         self.world.player_sprite.draw(self.screen)
+        self.world.projectile_sprites.draw(self.screen)
         pg.display.flip()
 
     def show_start_screen(self):
