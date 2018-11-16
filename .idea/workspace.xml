@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f27d5a75-5303-47ca-9fe8-3055631215e9" name="Default" comment="asd">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/Entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pawns.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pawns.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <ignored path="MechWarrior.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,7 +32,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="gitignore" value="6" />
+          <entry key="gitignore" value="12" />
           <entry key="json" value="225" />
           <entry key="py" value="7225" />
         </counts>
@@ -45,23 +40,23 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="225" />
-          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="PLAIN_TEXT" value="12" />
           <entry key="Python" value="7225" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="gitignore" value="1" />
+          <entry key="gitignore" value="2" />
           <entry key="json" value="1" />
-          <entry key="pstat" value="7" />
+          <entry key="pstat" value="8" />
           <entry key="py" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="1" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Profiler Session" value="7" />
+          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="Profiler Session" value="8" />
           <entry key="Python" value="12" />
         </counts>
       </usages-collector>
@@ -74,11 +69,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.44341266">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Pawns.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="367">
-                  <caret line="118" column="46" lean-forward="true" selection-start-line="118" selection-start-column="46" selection-end-line="118" selection-end-column="46" />
+                <state relative-caret-position="95">
+                  <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                     <marker date="1542345181230" expanded="true" signature="1101:1237" ph="..." />
@@ -86,6 +81,15 @@
                     <marker date="1542345181230" expanded="true" signature="4987:4996" ph="..." />
                     <marker date="1542345181230" expanded="true" signature="5249:5258" ph="..." />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="696">
+                  <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
                 </state>
               </provider>
             </entry>
@@ -136,8 +140,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/World.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="554">
-                  <caret line="88" column="83" selection-start-line="88" selection-start-column="83" selection-end-line="88" selection-end-column="83" />
+                <state relative-caret-position="299">
+                  <caret line="73" column="62" lean-forward="true" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                     <marker date="1542345269197" expanded="true" signature="1332:3543" ph="..." />
@@ -171,6 +175,7 @@
       <find>current_tiles</find>
       <find>sprite_sheet</find>
       <find>PLAYER_ROTATION_SPEED</find>
+      <find>game</find>
     </findStrings>
     <replaceStrings>
       <replace>terrain_sprites</replace>
@@ -186,13 +191,13 @@
         <option value="$PROJECT_DIR$/tilemap.py" />
         <option value="$PROJECT_DIR$/map_generator.py" />
         <option value="$PROJECT_DIR$/weapons.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/weapons.json" />
         <option value="$PROJECT_DIR$/settings.py" />
         <option value="$PROJECT_DIR$/Entity.py" />
         <option value="$PROJECT_DIR$/Pawns.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/World.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -485,7 +490,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.72974414" visible="true" weight="0.14449064" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.72974414" weight="0.14449064" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.21458773" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -548,13 +553,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tilemap.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -598,8 +596,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/World.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="88" column="83" selection-start-line="88" selection-start-column="83" selection-end-line="88" selection-end-column="83" />
+        <state relative-caret-position="299">
+          <caret line="73" column="62" lean-forward="true" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <marker date="1542345269197" expanded="true" signature="1332:3543" ph="..." />
@@ -609,8 +607,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Pawns.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="118" column="46" lean-forward="true" selection-start-line="118" selection-start-column="46" selection-end-line="118" selection-end-column="46" />
+        <state relative-caret-position="95">
+          <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <marker date="1542345181230" expanded="true" signature="1101:1237" ph="..." />
@@ -618,6 +616,13 @@
             <marker date="1542345181230" expanded="true" signature="4987:4996" ph="..." />
             <marker date="1542345181230" expanded="true" signature="5249:5258" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
         </state>
       </provider>
     </entry>
