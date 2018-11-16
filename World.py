@@ -9,13 +9,13 @@ class World:
         self.world_coords_origin = SCREEN_WIDTH/2, SCREEN_HEIGHT/2
         self.world_coords_offset = (0, 0)
         self.player_1 = None
-        self.player_sprite = sprite.OrderedUpdates()
+        self.player_sprite = sprite.Group()
         self.sprite_sheet = None
         self.terrain_sprites = sprite.OrderedUpdates()
-        self.projectile_sprites = sprite.OrderedUpdates()
+        self.projectile_sprites = sprite.Group()
+        self.enemy_sprites = sprite.Group()
         self.offset_x = None
         self.offset_y = None
-        self.current_tiles = []
         self.render_surface = RenderSurface(game=self, width=SURFACE_WIDTH, height=SURFACE_HEIGHT)
 
     def update_coords(self, vector_object):
@@ -28,19 +28,26 @@ class World:
         pass
 
     def spawn_item(self, item):
-        item.rect.x, item.rect.y = self.player_1.rect.x, self.player_1.rect.y
         self.projectile_sprites.add(item)
 
     def update(self):
         for player_sprites in self.player_sprite:
             player_sprites.update()
+        for projectile_sprite in self.projectile_sprites:
+            projectile_sprite.update()
+            # projectile_sprite.update(player_vector=[int(self.player_1.vel.x + 0.5 * self.player_1.acc.x),
+            #                                         int(self.player_1.vel.y + 0.5 * self.player_1.acc.y)])
+        self.update_world()
+
+    def update_world(self):
         previous_sprite_count = -1
         next_sprite_count = 1
         current_count = 0
         amount_tiles_wide = int(self.render_surface.rect.width / TILE_SIZE)
         for current_sprite in self.terrain_sprites.sprites():
-            current_sprite.rect.x += int(self.player_1.vel.x + 0.5 * self.player_1.acc.x)
-            current_sprite.rect.y += int(self.player_1.vel.y + 0.5 * self.player_1.acc.y)
+            p_move_vector = self.player_1.get_movement_vector()
+            current_sprite.rect.x += p_move_vector[0]
+            current_sprite.rect.y += p_move_vector[1]
         for current_sprite in self.terrain_sprites.sprites():
             position_modifier1 = current_count
             position_modifier2 = current_count
@@ -69,20 +76,21 @@ class World:
             previous_sprite_count += 1
             next_sprite_count += 1
             current_count += 1
-        for projectile_sprite in self.projectile_sprites:
-            projectile_sprite.update()
 
-    def new(self):
-        for a in range(int(self.render_surface.rect.height / TILE_SIZE) + 1):
+    def new(self, game):
+        for a in range(int(self.render_surface.rect.height / TILE_SIZE)):
             for b in range(int(self.render_surface.rect.width / TILE_SIZE)):
-                floor_tile = GameEntity(world=self, asset_type=DESSERT, name="Dessert Tile")
+                if a == 5 and b == 4:
+                    floor_tile = GameEntity(world=self, asset_type=WALL, name="Dessert Tile")
+                else:
+                    floor_tile = GameEntity(world=self, asset_type=DESSERT, name="Dessert Tile")
                 self.offset_x = (self.render_surface.rect.x + TILE_SIZE * b)
                 self.offset_y = (self.render_surface.rect.y + TILE_SIZE * a)
                 floor_tile.rect.x = self.offset_x
                 floor_tile.rect.y = self.offset_y
                 # self.render_surface.blit(self.floor_tile.image, (self.offset_x, self.offset_y), None)
                 self.terrain_sprites.add(floor_tile)
-        self.player_1 = Player(world=self, asset_type=PLAYER_HUMAN, name="Player 1")
+        self.player_1 = Player(world=self, asset_type=PLAYER_HUMAN, name="Player 1", game=game)
         self.player_1.rect.center = self.render_surface.rect.center
         self.player_sprite.add(self.player_1)
         self.player_sprite.add(Weapon(player=self.player_1, world=self, name="armBlaster", asset_type=WEAPON))
@@ -91,7 +99,6 @@ class World:
 class RenderSurface(Surface):
     def __init__(self, **kwargs):
         super(Surface, self).__init__(**kwargs)
-        self.game = kwargs.get('game')
         self.image = Surface((kwargs.get('width'), kwargs.get('height')))
         self.rect = self.image.get_rect()
         self.rect.center = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]

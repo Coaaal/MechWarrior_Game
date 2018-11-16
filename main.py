@@ -19,16 +19,16 @@ class Game:
         self.running = True
         self.playing = True
         self.world = None
-        self.load_assets()
         self.game_over = False
 
     def load_assets(self):
         # logging.info("Loading Assets...")
         self.world = World()
         self.world.sprite_sheet = SpriteSheet(path.join(path.join(ROOT_FOLDER, "img"), SPRITE_FILE_NAME))
-        self.world.new()
+        self.world.new(self)
 
     def new(self):
+        self.load_assets()
         # logging.info("Starting new game...")
         self.run()
 
@@ -36,8 +36,9 @@ class Game:
         # logging.info("Entering Game Loop...")
         while self.playing:
             self.clock.tick(FPS)
+            print(self.clock.get_fps())
             self.events()
-            self.world.update()
+            self.update()
             self.draw()
         # logging.info("Exiting Game Loop...")
 
@@ -50,8 +51,7 @@ class Game:
                 self.running = False
 
     def update(self):
-        self.world.terrain_sprites.update()
-        self.world.player_sprite.update()
+        self.world.update()
 
     def draw(self):
         # Game Loop - Draw
@@ -103,6 +103,7 @@ while g.running:
     g.new()
     if g.game_over:
         g.show_game_over_screen()
+
 pg.quit()
 # logging.info("Quitting Game...")
 quit()

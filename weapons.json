@@ -1,7 +1,8 @@
 {
     "armSword":
         {
-            "bulletSpeed": 1,
+            "bulletSpeed": 20,
+            "millisecondsBetweenBullets": 5,
             "ammoType": "fist",
             "totalAmmo": 0,
             "currentAmmoAmount": 0,
@@ -9,11 +10,12 @@
             "reloadSpeed": 1,
             "damage": 25,
             "level": 1,
-            "lifeLength": 1
+            "lifeLength": 10
         },
     "armBlaster":
         {
-            "bulletSpeed": 1,
+            "bulletSpeed": 20,
+            "millisecondsBetweenBullets": 200,
             "ammoType": "life",
             "totalAmmo": 0,
             "currentAmmoAmount": 0,
@@ -21,11 +23,12 @@
             "reloadSpeed": 1,
             "damage": 25,
             "level": 1,
-            "lifeLength": 1
+            "lifeLength": 1000
         },
     "armBow":
         {
-            "bulletSpeed": 1,
+            "bulletSpeed": 5,
+            "millisecondsBetweenBullets": 5,
             "ammoType": "life",
             "totalAmmo": 0,
             "currentAmmoAmount": 0,
@@ -33,6 +36,6 @@
             "reloadSpeed": 1,
             "damage": 25,
             "level": 1,
-            "lifeLength": 1
+            "lifeLength": 10
         }
 }

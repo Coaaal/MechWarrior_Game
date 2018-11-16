@@ -1,6 +1,7 @@
 import pygame as pg
 import time
 from settings import TILE_SIZE
+vec = pg.math.Vector2
 
 
 class SpriteSheet:
@@ -32,7 +33,10 @@ class GameEntity(pg.sprite.Sprite):
                                                        self.asset_type[2],
                                                        self.asset_type[3])
         self.rect = self.image.get_rect()
-        self.spawn_time = time.time()
+        self.acc = vec(0, 0)
+        self.vel = vec(0, 0)
+        self.pos = vec(0, 0)
+        self.spawn_time = pg.time.get_ticks()
 
     def spawn(self, x, y):
         # spawn entity at specified world coordinates

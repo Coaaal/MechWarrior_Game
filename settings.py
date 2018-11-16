@@ -1,18 +1,19 @@
 import os
 
+TILE_SIZE = 32
+
 # define options/settings
 TITLE = "Mech Warrior"
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 720
-SURFACE_WIDTH = 800
-SURFACE_HEIGHT = 600
-FPS = 30
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 800
+SURFACE_WIDTH = SCREEN_WIDTH + (TILE_SIZE * 2)
+SURFACE_HEIGHT = SCREEN_HEIGHT + (TILE_SIZE * 2)
+FPS = 60
 GRAVITY = 2
 ROOT_FOLDER = os.path.dirname(__file__)
 
 # spritesheet
 SPRITE_FILE_NAME = "MechWarrior.png"
-TILE_SIZE = 32
 KEY_PIXEL = (255, 0, 236)
 
 # spritesheet asset locations
