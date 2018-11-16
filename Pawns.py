@@ -1,7 +1,6 @@
 import pygame as pg
 from settings import *
 from Entity import GameEntity
-import math
 import json
 
 vec = pg.math.Vector2
@@ -104,7 +103,6 @@ class Player(GameEntity):
             self.health = 0
         self.current_weapon.get_keys()
         self.acc += self.vel * PLAYER_FRICTION
-        # equations of motion
         self.vel += self.acc
 
 
@@ -137,8 +135,6 @@ class Weapon(GameEntity):
                                   bullet_speed=self.weapon_stats['bulletSpeed'], name=("{} ammo".format(self.name)),
                                   spawn_angle=self.owner.rotation_amount)
         self.world.spawn_item(self.last_bullet)
-        # current_bullet = Bullet(self.world)
-        # self.live_bullets.append(current_bullet)
 
     def update(self):
         pass

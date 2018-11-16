@@ -1,5 +1,4 @@
 import pygame as pg
-import time
 from settings import TILE_SIZE
 vec = pg.math.Vector2
 

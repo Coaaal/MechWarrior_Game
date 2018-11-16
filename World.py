@@ -13,7 +13,7 @@ class World:
         self.sprite_sheet = None
         self.terrain_sprites = sprite.OrderedUpdates()
         self.projectile_sprites = sprite.Group()
-        self.enemy_sprites = sprite.Group()
+        self.object_sprites = sprite.Group()
         self.offset_x = None
         self.offset_y = None
         self.render_surface = RenderSurface(game=self, width=SURFACE_WIDTH, height=SURFACE_HEIGHT)
@@ -31,12 +31,11 @@ class World:
         self.projectile_sprites.add(item)
 
     def update(self):
-        for player_sprites in self.player_sprite:
-            player_sprites.update()
-        for projectile_sprite in self.projectile_sprites:
-            projectile_sprite.update()
-            # projectile_sprite.update(player_vector=[int(self.player_1.vel.x + 0.5 * self.player_1.acc.x),
-            #                                         int(self.player_1.vel.y + 0.5 * self.player_1.acc.y)])
+        pass
+        self.player_sprite.update()
+        self.projectile_sprites.update()
+        # projectile_sprite.update(player_vector=[int(self.player_1.vel.x + 0.5 * self.player_1.acc.x),
+        #                                         int(self.player_1.vel.y + 0.5 * self.player_1.acc.y)])
         self.update_world()
 
     def update_world(self):
@@ -77,20 +76,17 @@ class World:
             next_sprite_count += 1
             current_count += 1
 
-    def new(self, game):
+    def new(self):
         for a in range(int(self.render_surface.rect.height / TILE_SIZE)):
             for b in range(int(self.render_surface.rect.width / TILE_SIZE)):
-                if a == 5 and b == 4:
-                    floor_tile = GameEntity(world=self, asset_type=WALL, name="Dessert Tile")
-                else:
-                    floor_tile = GameEntity(world=self, asset_type=DESSERT, name="Dessert Tile")
+                floor_tile = GameEntity(world=self, asset_type=DESSERT, name="Dessert Tile")
                 self.offset_x = (self.render_surface.rect.x + TILE_SIZE * b)
                 self.offset_y = (self.render_surface.rect.y + TILE_SIZE * a)
                 floor_tile.rect.x = self.offset_x
                 floor_tile.rect.y = self.offset_y
                 # self.render_surface.blit(self.floor_tile.image, (self.offset_x, self.offset_y), None)
                 self.terrain_sprites.add(floor_tile)
-        self.player_1 = Player(world=self, asset_type=PLAYER_HUMAN, name="Player 1", game=game)
+        self.player_1 = Player(world=self, asset_type=PLAYER_HUMAN, name="Player 1")
         self.player_1.rect.center = self.render_surface.rect.center
         self.player_sprite.add(self.player_1)
         self.player_sprite.add(Weapon(player=self.player_1, world=self, name="armBlaster", asset_type=WEAPON))

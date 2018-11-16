@@ -25,7 +25,7 @@ class Game:
         # logging.info("Loading Assets...")
         self.world = World()
         self.world.sprite_sheet = SpriteSheet(path.join(path.join(ROOT_FOLDER, "img"), SPRITE_FILE_NAME))
-        self.world.new(self)
+        self.world.new()
 
     def new(self):
         self.load_assets()

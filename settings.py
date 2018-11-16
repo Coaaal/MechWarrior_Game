@@ -27,11 +27,6 @@ BULLET = [(2 * TILE_SIZE), (1 * TILE_SIZE), TILE_SIZE, TILE_SIZE]
 # player properties
 PLAYER_ACCELERATION = 1
 PLAYER_FRICTION = -0.12
-PLAYER_ROTATION_SPEED = 250
-
-# player states
-ALIVE = 1
-DEAD = 0
 
 # define colors
 WHITE = (255, 255, 255)
