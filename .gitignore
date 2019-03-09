@@ -50,3 +50,4 @@ env/*
 
 # Pycharm
 .idea/*
+*.idea*
